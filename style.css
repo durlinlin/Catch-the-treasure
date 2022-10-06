@@ -1,40 +1,190 @@
+*{
+  padding: 0;
+  margin: 0;
+}
 body{
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
+  background-color: grey;
+  overflow: hidden;
   /* border: 1px solid black; */
 }
+.gameStart{
+  position: absolute;
+  align-items: center;
+  z-index: 5;
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
 
+.gameStart:hover,
+.gameStart:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+.gameStart:active {
+  opacity: .5;
+}
+.background{
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, lightblue, lightyellow);
+  position: absolute;
+}
+.midGround{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 60%;
+  height: 50%;
+  left: 0px;
+  /* background-color: blue; */
+  /* border: 1px solid purple; */
+  bottom: 100px;
+  border-radius: 0 100% 0 0;
+  background: linear-gradient(to bottom, yellowgreen , rgb(101, 142, 40));
+  -webkit-box-shadow: rgba(180, 179, 179, 0.7) 0 0px 20px;
+  -moz-box-shadow: rgba(180, 179, 179, 0.7) 0 0px 20px;
+  box-shadow: rgba(180, 179, 179, 0.7) 0 0px 20px;
+  filter: blur(3px);
+}
+.foreGround{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  right: 0px;
+  /* background-color: blue; */
+  /* border: 1px solid orange; */
+  bottom: 100px;
+  border-radius: 100% 5% 0 0;
+  background: linear-gradient(to bottom, yellowgreen , forestgreen);
+  -webkit-box-shadow: rgba(180, 179, 179, 0.7) 0 0px 10px;
+  -moz-box-shadow: rgba(180, 179, 179, 0.7) 0 0px 10px;
+  box-shadow: rgba(180, 179, 179, 0.7) 0 0px 10px;
+  filter: blur(1px);
+}
 .player{
   display: flex;
   position: absolute;
-  height: 50px;
-  width: 50px;
-  background-color: black;
-  transition: left 0.1s;
+  height: 100px;
+  width: 70px;
+  background-image: url("./img/pngegg\ \(5\).png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: left 0.4s;
+  /* border: 1px solid black; */
+  /* border-radius: 50%; */
 }
 .rocks{
   display: flex;
   position: absolute;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   top: 5px;
-  height: 30px;
-  width: 30px;
-  background-color: blue;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  color: white;
+  font-size: 50px;
+}
+.bomb{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  top: 5px;
+  height: 50px;
+  width: 50px;
+  background-color: rgb(51, 47, 47);
+  background-image: url("./img/pngegg\ \(7\).png");
+  background-size: contain;
+  border: 3px solid black;
+  border-radius: 50%;
+  color: white;
+  font-size: 35px;
+}
+.coin{
+  display: flex;
+  position: absolute;
+  top: 5px;
+  height: 50px;
+  width: 50px;
+  background-image: url("./img/pngegg\ \(6\).png");
+  background-size: contain;
+  background-position: center;
+  border-radius: 50%;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px;
+  box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px;
 }
 .treasure{
   display: flex;
   position: absolute;
+  align-items: center;
+  justify-content: center;
   top: 5px;
-  height: 30px;
-  width: 30px;
-  background-color: red;
+  /* height: 70px;
+  width: 70px; */
+  /* background-image: url("./img/pngegg\ \(8\).png"); */
+  font-size: 50px;
+  background-size: contain;
+  background-position: center;
+  /* border-radius: 50%;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px;
+  box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px; */
 }
 .gameFloor{
   display: flex;
   position: absolute;
-  bottom: 30px;
+  bottom: 0px;
   border: 1px solid blue;
   width: 100%;
+  height: 100px;
+  background-color: rgb(205, 145, 76);
+}
+.scoreBoard{
+  display: flex;
+  /* align-items: flex-start; */
+  right:0;
+  position: absolute;
+  border: 1px solid blue;
+  font-family: 'Play', sans-serif;
+  color: black;
+  font-size: 40px;
 }
