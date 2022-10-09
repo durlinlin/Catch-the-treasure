@@ -1,21 +1,30 @@
 let gameBox = document.body
 let gameStart = document.querySelector(".gameStart")
+let scoreCount = document.querySelector(".scoreBoard")
+let playerScore = 0
+let playerLifeContainer = document.querySelector(".playerLivesContainer")
+let playerLifeBar = document.querySelectorAll(".playerLives")
+let gameOver = document.querySelector(".gameOver")
+let gameOverDisplay = document.querySelector(".gameOverDisplay")
+let gameRestart = document.querySelector(".gameRestart")
+let highScore = document.querySelector(".yourScore")
 
+gameOver.style.display = "none";
+let active = false;
 gameStart.addEventListener("click", event => {
-  setInterval(createRocks, 1300);
-  setInterval(createBomb, 5000);
-  setInterval(createCoin, 1600);
-  setInterval(createTreasure, 5500)
-  gameStart.remove()
+  active = true;
+rockStart = setInterval(createRocks, 1800);
+bombStart = setInterval(createBomb, 1000);
+coinStart = setInterval(createCoin, 1900);
+treasureStart = setInterval(createTreasure, 2000)
+gameStart.style.display = "none";
 })
 
 document.addEventListener("keydown", event => {
   if (event.key === "ArrowLeft") {
-    console.log('left');
     movePlayerLeft();
   }
   if (event.key === "ArrowRight") {
-    console.log('right');
     movePlayerRight();
   }
 });
@@ -23,6 +32,7 @@ document.addEventListener("keydown", event => {
 
 let playerStart = 50
 let playerMove = 0
+let globalGravity = 1;
 function createPlayer(){
   let makePlayer = document.createElement('div');
   makePlayer.classList.add('player');
@@ -37,6 +47,7 @@ function movePlayerLeft() {
   if (playerMove > -40) {
     playerMove -= 10
     let player = document.querySelector('#player');
+    player.classList.add("lookLeft")
     player.style.left = `calc(${playerStart}% + ${playerMove}%)`
   }
 }
@@ -44,9 +55,21 @@ function movePlayerRight() {
   if (playerMove < 40) {
     playerMove += 10
     let player = document.querySelector('#player');
+    player.classList.remove("lookLeft")
     player.style.left = `calc(${playerStart}% + ${playerMove}%)`
   }
 }
+function createPlayerLives() {
+  for (let i = 0; i < 3; i++) {
+    let lives = document.createElement("div");
+    lives.classList.add('playerLives')
+    lives.getAttribute("id", "lives");
+    lives.innerText="❤️"
+    playerLifeContainer.append(lives)
+  }
+}
+createPlayerLives();
+console.log(playerLifeContainer)
 
 function isCollide(a, b) {
   return !(
@@ -59,24 +82,30 @@ function isCollide(a, b) {
   function createRocks() {
     let makeRocks = document.createElement('div')
     let rockStart = Math.floor(Math.random() * 9) * 10 + 12;
-    let rockGravity = 5
+    let rockGravity = 5;
     makeRocks.classList.add('rocks')
     makeRocks.getAttribute("id", "rocks")
     makeRocks.innerText = "🪨"
     makeRocks.style.left = rockStart + "%"
     gameBox.append(makeRocks)
     function fallingRocks() {
-      rockGravity += 2
-      makeRocks.style.top = rockGravity + "px"
-      let gameFloor = document.querySelector("#floor").getBoundingClientRect();
-      let rocks = makeRocks.getBoundingClientRect();
-      let player = document.querySelector('#player').getBoundingClientRect();
-      if (isCollide(gameFloor,rocks)) {
-        makeRocks.remove()
-      }
-      if (isCollide(player, rocks)) {
-        makeRocks.remove()
-      }
+      
+        rockGravity += globalGravity * 1.4;
+        makeRocks.style.top = rockGravity + "px";
+        let gameFloor = document.querySelector("#floor").getBoundingClientRect();
+        let rocks = makeRocks.getBoundingClientRect();
+        let player = document.querySelector('#player').getBoundingClientRect();
+        if (isCollide(gameFloor, rocks)) {
+          makeRocks.remove()
+        }
+        if (isCollide(player, rocks)) {
+          makeRocks.remove()
+          if (active) {
+            playerScore -= 10
+            scoreCount.textContent = `${playerScore}`
+          }
+        }
+      
     }
     setInterval(fallingRocks, 30);
   }
@@ -87,11 +116,10 @@ function createBomb() {
     let rockGravity = 5
     makeRocks.classList.add('bomb')
     makeRocks.getAttribute("id", "bomb")
-    // makeRocks.innerText = "☠️"
     makeRocks.style.left = rockStart + "%"
     gameBox.append(makeRocks)
     function fallingRocks() {
-      rockGravity += 5
+      rockGravity += globalGravity * 2;
       makeRocks.style.top = rockGravity + "px"
       let gameFloor = document.querySelector("#floor").getBoundingClientRect();
       let rocks = makeRocks.getBoundingClientRect();
@@ -101,8 +129,21 @@ function createBomb() {
       }
       if (isCollide(player, rocks)) {
         makeRocks.remove()
-        alert('Game Over!');
-        location.reload();
+        playerLifeContainer.removeChild(playerLifeContainer.lastChild)
+        console.log(playerLifeContainer.innerHTML.length)
+        if (playerLifeContainer.innerHTML.length === 0) {
+          console.log("out of lives")
+          gameOver.style.opacity = 1
+          globalGravity = 0;
+          gameOver.style.display = "flex";
+          stop();
+          active = false;
+          scoreCount.textContent = `${playerScore}`
+          highScore.textContent = `Your Score: ${playerScore}`
+          // gameOver.classList.toggle("gameOverDisplay");
+          // gameOver.classList.toggle("gameRestart");
+
+        }
       }
     }
     setInterval(fallingRocks, 30);
@@ -116,20 +157,25 @@ function createBomb() {
     makeTreasure.style.left = treasureStart + "%"
     gameBox.append(makeTreasure)
     function fallingTreasure() {
-      treasureGravity += 1.5
-      makeTreasure.style.top = treasureGravity + "px"
-      let gameFloor = document.querySelector("#floor").getBoundingClientRect();
-      let treasures = makeTreasure.getBoundingClientRect();
-      let player = document.querySelector('#player').getBoundingClientRect();
-      if (isCollide(gameFloor,treasures)) {
-        makeTreasure.remove()
-      }
-      if (isCollide(player, treasures)) {
-        makeTreasure.remove()
-      }
+      
+        treasureGravity += globalGravity * 1.2;
+        makeTreasure.style.top = treasureGravity + "px"
+        let gameFloor = document.querySelector("#floor").getBoundingClientRect();
+        let treasures = makeTreasure.getBoundingClientRect();
+        let player = document.querySelector('#player').getBoundingClientRect();
+        if (isCollide(gameFloor, treasures)) {
+          makeTreasure.remove()
+        }
+        if (isCollide(player, treasures)) {
+          makeTreasure.remove()
+          if (active){
+            playerScore += 10
+            scoreCount.textContent = `${playerScore}`   }      
+        }
     }
     setInterval(fallingTreasure, 30);
   }
+
   function createTreasure() {
     let makeTreasure = document.createElement('div')
     let treasureStart = Math.floor(Math.random() * 9) * 10 + 12;
@@ -140,19 +186,37 @@ function createBomb() {
     makeTreasure.style.left = treasureStart + "%"
     gameBox.append(makeTreasure)
     function fallingTreasure() {
-      treasureGravity += 1.5
-      makeTreasure.style.top = treasureGravity + "px"
-      let gameFloor = document.querySelector("#floor").getBoundingClientRect();
-      let treasures = makeTreasure.getBoundingClientRect();
-      let player = document.querySelector('#player').getBoundingClientRect();
-      if (isCollide(gameFloor,treasures)) {
-        makeTreasure.remove()
+        treasureGravity += globalGravity * 1;
+        makeTreasure.style.top = treasureGravity + "px"
+        let gameFloor = document.querySelector("#floor").getBoundingClientRect();
+        let treasures = makeTreasure.getBoundingClientRect();
+        let player = document.querySelector('#player').getBoundingClientRect();
+        if (isCollide(gameFloor, treasures)) {
+          makeTreasure.remove()
+        }
+        if (isCollide(player, treasures)) {
+          makeTreasure.remove()    
+          if (active){
+            playerScore += 100
+            scoreCount.textContent = `${playerScore}`  }    
+        }
       }
-      if (isCollide(player, treasures)) {
-        makeTreasure.remove()
-      }
-    }
     setInterval(fallingTreasure, 30);
   }
-  // setInterval(createTreasure, 1400);
   
+  gameRestart.addEventListener('click', event => {
+    // createPlayerLives()
+    // gameRestart.style.display = "none";
+    // globalGravity = 1;
+    // playerScore = 0
+    // scoreCount.textContent = `${playerScore}`
+    // gameStart()
+    location.reload()
+  })
+
+function stop() {
+  clearInterval(rockStart);
+  clearInterval(bombStart);
+  clearInterval(coinStart);
+  clearInterval(treasureStart);
+};

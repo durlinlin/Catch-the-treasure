@@ -6,15 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="./script.js" defer></script>
   <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre&display=swap" rel="stylesheet">
   <title>Catch the Treasures</title>
 </head>
 <body>
   <button class="gameStart">Start Game</button>
-  <div class="background"> 
-    <div class="scoreBoard">0000</div>
-  </div>
+  
+  <div class="background"></div>
   <div class="midGround"></div>
   <div class="foreGround"></div>
+  <div class="scoreBoard">Score: 0000</div>
+  <div class="playerLivesContainer"></div>
+  <div class="gameOver"> 
+      <div class="gameOverDisplay">Game Over!</div>
+      <div class="yourScore"></div>
+      <div class="gameRestart">Resart Game</div>
+  </div>
   <div id="floor" class="gameFloor"></div>
 </body>
 </html>

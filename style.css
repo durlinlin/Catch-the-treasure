@@ -38,10 +38,12 @@ body{
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
+  transition: all .2s ease-in-out;
 }
 
 .gameStart:hover,
 .gameStart:active {
+  /* transition: all .5s ease-in-out; */
   background-color: initial;
   background-position: 0 0;
   color: #FF4742;
@@ -56,58 +58,105 @@ body{
   align-items: center; */
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, lightblue, lightyellow);
+  background-image: url("https://static.tvtropes.org/trope_videos_transcoded/images/sd/wus292.jpg");
+  background-size: cover;
+  /* background: linear-gradient(to bottom, lightblue, lightyellow); */
   position: absolute;
+  filter:blur( 3px) grayscale(.2);
 }
 .midGround{
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 60%;
-  height: 50%;
-  left: 0px;
+  width: 150%;
+  height: 150%;
+  left: -75%;
+  top: 10%;
   /* background-color: blue; */
   /* border: 1px solid purple; */
-  bottom: 100px;
-  border-radius: 0 100% 0 0;
-  background: linear-gradient(to bottom, yellowgreen , rgb(101, 142, 40));
+  background-image: url("./img/Lovepik_com-400193377-floating-island.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* bottom: 100px; */
+  /* border-radius: 0 100% 0 0; */
+  /* background: linear-gradient(to bottom, yellowgreen , rgb(101, 142, 40));
   -webkit-box-shadow: rgba(180, 179, 179, 0.7) 0 0px 20px;
   -moz-box-shadow: rgba(180, 179, 179, 0.7) 0 0px 20px;
-  box-shadow: rgba(180, 179, 179, 0.7) 0 0px 20px;
-  filter: blur(3px);
+  box-shadow: rgba(180, 179, 179, 0.7) 0 0px 20px; */
+  /* filter: blur(3px); */
+  animation:  float 9s infinite;
+  filter:blur(1px);
+}
+@keyframes float {
+  0%{
+    transform: translateY(0);
+  }
+  50%{
+    transform: translateY(20px);
+  }
+  100%{
+    transform: translateY(0);
+  }
+}
+@keyframes float2 {
+  0%{
+    transform: translateY(0);
+  }
+  50%{
+    transform: translateY(20px);
+  }
+  100%{
+    transform: translateY(0);
+  }
 }
 .foreGround{
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 50%;
-  height: 30%;
+  width: 40%;
+  height: 40%;
   right: 0px;
   /* background-color: blue; */
   /* border: 1px solid orange; */
-  bottom: 100px;
-  border-radius: 100% 5% 0 0;
+  top: 10%;
+  background-image: url("./img/Lovepik_com-400193377-floating-island.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* border-radius: 100% 5% 0 0;
   background: linear-gradient(to bottom, yellowgreen , forestgreen);
   -webkit-box-shadow: rgba(180, 179, 179, 0.7) 0 0px 10px;
   -moz-box-shadow: rgba(180, 179, 179, 0.7) 0 0px 10px;
-  box-shadow: rgba(180, 179, 179, 0.7) 0 0px 10px;
-  filter: blur(1px);
+  box-shadow: rgba(180, 179, 179, 0.7) 0 0px 10px; */
+  filter: blur(3px);
+  animation:  float 4s infinite;
 }
 .player{
   display: flex;
   position: absolute;
   height: 100px;
-  width: 70px;
-  background-image: url("./img/pngegg\ \(5\).png");
+  width: 75px;
+  background-image: url("./img/luffy_run_render.gif");
   background-position: center;
-  background-size: contain;
+  background-size:cover;
   background-repeat: no-repeat;
   transition: left 0.4s;
   /* border: 1px solid black; */
   /* border-radius: 50%; */
 }
+.lookLeft{
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
 .rocks{
   display: flex;
   position: absolute;
@@ -158,33 +207,110 @@ body{
   align-items: center;
   justify-content: center;
   top: 5px;
-  /* height: 70px;
-  width: 70px; */
-  /* background-image: url("./img/pngegg\ \(8\).png"); */
   font-size: 50px;
   background-size: contain;
   background-position: center;
-  /* border-radius: 50%;
-  -webkit-box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px;
-  -moz-box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px;
-  box-shadow: rgba(255, 255, 255, 0.7) 0 0px 20px; */
 }
 .gameFloor{
   display: flex;
   position: absolute;
   bottom: 0px;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 100%;
   height: 100px;
-  background-color: rgb(205, 145, 76);
+  background-color: rgb(191, 147, 97);
 }
 .scoreBoard{
   display: flex;
   /* align-items: flex-start; */
   right:0;
   position: absolute;
-  border: 1px solid blue;
-  font-family: 'Play', sans-serif;
+  /* border: 1px solid blue; */
+  font-family: 'Gemunu Libre', sans-serif;
+  color: white;
+  font-size: 35px;
+  top:0;
+}
+.playerLivesContainer{
+  display: flex;
+  flex-direction: row;
+  left: 0;
+  position: absolute;
+  top:0;
+
+}
+.playerLives{
+  display: flex;
+  /* align-items: flex-start; */
+  /* border: 1px solid blue; */
+  font-family: 'Gemunu Libre', sans-serif;
   color: black;
-  font-size: 40px;
+  font-size: 35px;
+}
+.gameOver{
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: 'Gemunu Libre', sans-serif;
+  font-size: 35px;
+  color: white;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 4rem;
+  text-align: center;
+  /* z-index: 10; */
+  /* opacity: 1; */
+  transition: all 250ms ease;
+}
+.gameRestart{
+  position: absolute;
+  top: 116%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  transition: all .2s ease-in-out;
+  z-index: 6;
+}
+.gameRestart:hover,
+.gameRestart:active {
+  /* transition: all .5s ease-in-out; */
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+.gameRestart:active {
+  opacity: .5;
+}
+.yourScore{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
 }
