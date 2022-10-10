@@ -5,7 +5,7 @@ Help Luffy collect treasures!
 
 # Controls
 
-Use 'ArrowLeft' and 'ArrowRight' Keys to move your character left and right. Collect coins/diamonds while avoiding rocks/bombs. 
+Use `ArrowLeft` and `ArrowRight` Keys to move your character left and right. Collect coins/diamonds while avoiding rocks/bombs. 
 
 # Point system
 
