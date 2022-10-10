@@ -8,9 +8,12 @@ let gameOver = document.querySelector(".gameOver")
 let gameOverDisplay = document.querySelector(".gameOverDisplay")
 let gameRestart = document.querySelector(".gameRestart")
 let highScore = document.querySelector(".yourScore")
-
+let playerStart = 50
+let playerMove = 0
+let globalGravity = 1;
 gameOver.style.display = "none";
 let active = false;
+
 gameStart.addEventListener("click", event => {
   active = true;
 rockStart = setInterval(createRocks, 1800);
@@ -30,9 +33,6 @@ document.addEventListener("keydown", event => {
 });
 
 
-let playerStart = 50
-let playerMove = 0
-let globalGravity = 1;
 function createPlayer(){
   let makePlayer = document.createElement('div');
   makePlayer.classList.add('player');
@@ -109,7 +109,6 @@ function isCollide(a, b) {
     }
     setInterval(fallingRocks, 30);
   }
-  // setInterval(createRocks, 1000);
 function createBomb() {
     let makeRocks = document.createElement('div')
     let rockStart = Math.floor(Math.random() * 9) * 10 + 12;
@@ -140,8 +139,6 @@ function createBomb() {
           active = false;
           scoreCount.textContent = `${playerScore}`
           highScore.textContent = `Your Score: ${playerScore}`
-          // gameOver.classList.toggle("gameOverDisplay");
-          // gameOver.classList.toggle("gameRestart");
 
         }
       }
@@ -205,12 +202,6 @@ function createBomb() {
   }
   
   gameRestart.addEventListener('click', event => {
-    // createPlayerLives()
-    // gameRestart.style.display = "none";
-    // globalGravity = 1;
-    // playerScore = 0
-    // scoreCount.textContent = `${playerScore}`
-    // gameStart()
     location.reload()
   })
 
