@@ -21,4 +21,7 @@ Collection    | Result      |
   * CSS
   * HTML
 
+# References
+Collision detection code from: https://stackoverflow.com/questions/2440377/javascript-collision-detection
+
 
